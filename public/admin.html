@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم رئيس القسم - نظام توجيه الطلبة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset وإعدادات أساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --gradient: linear-gradient(135deg, #2c3e50, #3498db);
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* تصميم الهيدر */
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #c0392b);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* تصميم المحتوى الرئيسي */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* تصميم شاشة الدخول */
+        .login-container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header i {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* تصميم البطاقات */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-color);
+        }
+
+        .card-header i {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-left: 15px;
+            background-color: rgba(231, 76, 60, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .card-header h2 {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+        }
+
+        /* تصميم النماذج */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+        }
+
+        /* تصميم الأزرار */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* تصميم الجداول */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            min-width: 800px;
+        }
+
+        thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(231, 76, 60, 0.05);
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:nth-child(even):hover {
+            background-color: rgba(231, 76, 60, 0.05);
+        }
+
+        /* تصميم رسائل التنبيه */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .alert-success {
+            background-color: rgba(39, 174, 96, 0.15);
+            color: #27ae60;
+            border-right: 4px solid #27ae60;
+        }
+
+        .alert-error {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            border-right: 4px solid #e74c3c;
+        }
+
+        .alert-info {
+            background-color: rgba(52, 152, 219, 0.15);
+            color: #3498db;
+            border-right: 4px solid #3498db;
+        }
+
+        /* تصميم محدد النتائج */
+        .results-summary {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .result-box h3 {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .result-automation .result-value {
+            color: var(--secondary-color);
+        }
+
+        .result-petroleum .result-value {
+            color: var(--accent-color);
+        }
+
+        /* تصميم الفوتر */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .developers {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .developer {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* تصميم متجاوب للهواتف */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .logo i {
+                font-size: 1.8rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .card-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-col {
+                min-width: 100%;
+            }
+            
+            .login-container {
+                padding: 25px;
+                margin: 20px;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 12px 15px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 0.95rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .card-header i {
+                margin-bottom: 10px;
+                margin-left: 0;
+            }
+            
+            .developers {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* تخصيصات إضافية */
+        .hidden {
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning-color);
+        }
+
+        .status-assigned {
+            background-color: rgba(39, 174, 96, 0.2);
+            color: var(--success-color);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .search-box input {
+            padding-right: 45px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h1>لوحة تحكم رئيس القسم</h1>
+                <div class="logo">
+                    <i class="fas fa-lock"></i>
+                </div>
+            </div>
+            <p>قسم الإلكترونيك والاتصالات - نظام إدارة توجيه طلبة السنة الثالثة</p>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <!-- قسم تسجيل الدخول -->
+        <div id="login-section">
+            <a href="/" class="back-link">
+                <i class="fas fa-arrow-right"></i>
+                العودة للصفحة الرئيسية
+            </a>
+            
+            <div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-user-shield"></i>
+                    <h2>تسجيل الدخول الآمن</h2>
+                    <p>هذه الصفحة مخصصة لرئيس القسم فقط</p>
+                </div>
+                <div id="login-alert" class="alert hidden"></div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="password">كلمة المرور</label>
+                        <input type="password" id="password" required placeholder="أدخل كلمة المرور">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- لوحة التحكم -->
+        <div id="department-dashboard" class="hidden">
+            <a href="/" class="back-link">
+                <i class="fas fa-arrow-right"></i>
+                العودة للصفحة الرئيسية
+            </a>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h2>لوحة تحكم رئيس القسم</h2>
+                    <button id="logout-btn" class="btn btn-warning" style="margin-right: auto;">
+                        <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                    </button>
+                </div>
+                
+                <div class="results-summary">
+                    <div class="result-box result-automation">
+                        <h3>عدد المناصب المتاحة للآلية العامة</h3>
+                        <div class="result-value" id="automation-seats">0</div>
+                        <button id="edit-automation-seats" class="btn btn-primary" style="margin-top: 10px;">
+                            <i class="fas fa-edit"></i> تعديل
+                        </button>
+                    </div>
+                    <div class="result-box result-petroleum">
+                        <h3>عدد المناصب المتاحة للآتية البترولية</h3>
+                        <div class="result-value" id="petroleum-seats">0</div>
+                        <button id="edit-petroleum-seats" class="btn btn-primary" style="margin-top: 10px;">
+                            <i class="fas fa-edit"></i> تعديل
+                        </button>
+                    </div>
+                    <div class="result-box">
+                        <h3>إجمالي الطلبات المقدمة</h3>
+                        <div class="result-value" id="total-applications">0</div>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="margin-top: 20px;">
+                    <div class="form-col">
+                        <label for="automation-seats-input">عدد مناصب الآلية العامة</label>
+                        <input type="number" id="automation-seats-input" min="0" value="0" style="display: none;">
+                    </div>
+                    <div class="form-col">
+                        <label for="petroleum-seats-input">عدد مناصب الآتية البترولية</label>
+                        <input type="number" id="petroleum-seats-input" min="0" value="0" style="display: none;">
+                    </div>
+                </div>
+                
+                <div id="seats-buttons" style="display: none; margin-top: 20px;">
+                    <button id="save-seats" class="btn btn-success">
+                        <i class="fas fa-save"></i> حفظ المناصب
+                    </button>
+                    <button id="cancel-seats" class="btn btn-warning">
+                        <i class="fas fa-times"></i> إلغاء
+                    </button>
+                </div>
+                
+                <div class="form-group" style="margin-top: 30px;">
+                    <button id="calculate-results" class="btn btn-success btn-block">
+                        <i class="fas fa-calculator"></i> احتساب النتائج وتوزيع الطلبة
+                    </button>
+                </div>
+                
+                <div id="results-alert" class="alert hidden"></div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-list-ol"></i>
+                    <h2>قائمة الطلبة والنتائج</h2>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" id="search-student" placeholder="بحث برقم التسجيل أو البريد الإلكتروني...">
+                    <i class="fas fa-search"></i>
+                </div>
+                
+                <div class="table-container">
+                    <table id="studentsTable">
+                        <thead>
+                            <tr>
+                                <th>رقم التسجيل</th>
+                                <th>البريد الإلكتروني</th>
+                                <th>رقم الهاتف</th>
+                                <th>المعدل</th>
+                                <th>التخصص المطلوب</th>
+                                <th>التخصص المعين</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="noStudentsRow">
+                                <td colspan="7" style="text-align: center; padding: 30px;">لا توجد بيانات للطلبة</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+                    <button id="export-results" class="btn btn-primary">
+                        <i class="fas fa-download"></i> تصدير النتائج
+                    </button>
+                    <button id="reset-results" class="btn btn-warning">
+                        <i class="fas fa-redo"></i> إعادة تعيين النتائج
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>جامعة قاصدي مرباح - ورقلة<br>قسم الإلكترونيك والاتصالات</p>
+            <p>نظام إدارة توجيه الطلبة - الوصول مقصور على رئيس القسم</p>
+            <div class="developers">
+                <div class="developer">عامري رياض</div>
+                <div class="developer">يوسف مهدي</div>
+                <div class="developer">راوة نور السلام</div>
+            </div>
+            <p class="copyright">تم تطوير هذا النظام من قبل طلبة القسم تحت إشراف الأستاذ عشبي محمد السيعد</p>
+        </div>
+    </footer>
+
+    <script>
+        // إعدادات API
+        const API_BASE_URL = '/api';
+        
+        // حالة التطبيق
+        let appState = {
+            isLoggedIn: false,
+            allStudents: [],
+            settings: {
+                automationSeats: 0,
+                petroleumSeats: 0
+            }
+        };
+
+        // DOM Elements
+        const loginSection = document.getElementById('login-section');
+        const departmentDashboard = document.getElementById('department-dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logout-btn');
+        const calculateResultsBtn = document.getElementById('calculate-results');
+        const exportResultsBtn = document.getElementById('export-results');
+        const resetResultsBtn = document.getElementById('reset-results');
+        const searchInput = document.getElementById('search-student');
+        const studentsTable = document.getElementById('studentsTable');
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            
+            // التحقق من وجود جلسة مسجل مسبقاً
+            const savedLogin = localStorage.getItem('departmentLoggedIn');
+            if (savedLogin === 'true') {
+                appState.isLoggedIn = true;
+                showDashboard();
+            }
+        });
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // تسجيل دخول رئيس القسم
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLogin);
+            }
+
+            // تسجيل خروج رئيس القسم
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+
+            // احتساب النتائج
+            if (calculateResultsBtn) {
+                calculateResultsBtn.addEventListener('click', calculateResults);
+            }
+
+            // تصدير النتائج
+            if (exportResultsBtn) {
+                exportResultsBtn.addEventListener('click', exportResults);
+            }
+
+            // إعادة تعيين النتائج
+            if (resetResultsBtn) {
+                resetResultsBtn.addEventListener('click', resetResults);
+            }
+
+            // البحث عن طالب
+            if (searchInput) {
+                searchInput.addEventListener('input', filterStudents);
+            }
+
+            // تعديل عدد المناصب
+            const editAutomationSeatsBtn = document.getElementById('edit-automation-seats');
+            const editPetroleumSeatsBtn = document.getElementById('edit-petroleum-seats');
+            const saveSeatsBtn = document.getElementById('save-seats');
+            const cancelSeatsBtn = document.getElementById('cancel-seats');
+
+            if (editAutomationSeatsBtn) {
+                editAutomationSeatsBtn.addEventListener('click', () => toggleSeatsEdit('automation'));
+            }
+
+            if (editPetroleumSeatsBtn) {
+                editPetroleumSeatsBtn.addEventListener('click', () => toggleSeatsEdit('petroleum'));
+            }
+
+            if (saveSeatsBtn) {
+                saveSeatsBtn.addEventListener('click', saveSeats);
+            }
+
+            if (cancelSeatsBtn) {
+                cancelSeatsBtn.addEventListener('click', cancelSeatsEdit);
+            }
+        }
+
+        // معالجة تسجيل دخول رئيس القسم
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/department/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    appState.isLoggedIn = true;
+                    localStorage.setItem('departmentLoggedIn', 'true');
+                    showDashboard();
+                    showAlert('login-alert', 'تم تسجيل الدخول بنجاح!', 'success');
+                    loginForm.reset();
+                } else {
+                    showAlert('login-alert', data.message || 'كلمة المرور غير صحيحة', 'error');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('login-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        }
+
+        // معالجة تسجيل خروج رئيس القسم
+        function handleLogout() {
+            appState.isLoggedIn = false;
+            localStorage.removeItem('departmentLoggedIn');
+            loginSection.style.display = 'block';
+            departmentDashboard.classList.add('hidden');
+            showAlert('login-alert', 'تم تسجيل الخروج بنجاح', 'success');
+        }
+
+        // عرض لوحة التحكم
+        function showDashboard() {
+            loginSection.style.display = 'none';
+            departmentDashboard.classList.remove('hidden');
+            loadDepartmentDashboard();
+        }
+
+        // تحميل لوحة تحكم رئيس القسم
+        async function loadDepartmentDashboard() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/department/students`);
+                const data = await response.json();
+
+                if (data.success) {
+                    appState.allStudents = data.students;
+                    appState.settings = data.settings;
+                    
+                    updateSeatsDisplay();
+                    updateStudentsTable();
+                    updateStatistics();
+                }
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                showAlert('results-alert', 'حدث خطأ في تحميل البيانات', 'error');
+            }
+        }
+
+        // تحديث عرض عدد المناصب
+        function updateSeatsDisplay() {
+            document.getElementById('automation-seats').textContent = appState.settings.automationSeats;
+            document.getElementById('petroleum-seats').textContent = appState.settings.petroleumSeats;
+            document.getElementById('automation-seats-input').value = appState.settings.automationSeats;
+            document.getElementById('petroleum-seats-input').value = appState.settings.petroleumSeats;
+        }
+
+        // تحديث جدول الطلبة
+        function updateStudentsTable() {
+            const tbody = studentsTable.querySelector('tbody');
+            const noStudentsRow = document.getElementById('noStudentsRow');
+            
+            // إزالة الصفوف القديمة
+            tbody.querySelectorAll('tr:not(#noStudentsRow)').forEach(row => row.remove());
+            
+            if (appState.allStudents.length === 0) {
+                noStudentsRow.style.display = 'table-row';
+                return;
+            }
+            
+            noStudentsRow.style.display = 'none';
+            
+            appState.allStudents.forEach(student => {
+                const row = document.createElement('tr');
+                
+                const specialtyChoiceText = student.specialtyChoice === 'automation' ? 'الآلية العامة' : 'الآتية بترولية';
+                const assignedSpecialtyText = student.assignedSpecialty === 'automation' ? 'الآلية العامة' : 
+                                             student.assignedSpecialty === 'petroleum' ? 'الآتية بترولية' : 'لم يتم التعيين';
+                
+                row.innerHTML = `
+                    <td>${student.registrationNumber}</td>
+                    <td>${student.email}</td>
+                    <td>${student.phone}</td>
+                    <td>
+                        <input type="number" min="0" max="20" step="0.01" 
+                               value="${student.average || 0}" 
+                               onchange="updateStudentAverage('${student._id}', this.value)"
+                               style="width: 80px; padding: 5px;">
+                    </td>
+                    <td>${specialtyChoiceText}</td>
+                    <td>${assignedSpecialtyText}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn btn-primary" onclick="changeSpecialty('${student._id}', 'automation')">
+                                <i class="fas fa-robot"></i> آلية
+                            </button>
+                            <button class="btn btn-warning" onclick="changeSpecialty('${student._id}', 'petroleum')">
+                                <i class="fas fa-oil-can"></i> بترولية
+                            </button>
+                            <button class="btn btn-success" onclick="changeSpecialty('${student._id}', '')">
+                                <i class="fas fa-times"></i> إلغاء
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteStudent('${student._id}')" style="background-color: #dc3545;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // تحديث إحصائيات التطبيق
+        function updateStatistics() {
+            document.getElementById('total-applications').textContent = appState.allStudents.length;
+        }
+
+        // تحديث معدل الطالب
+        async function updateStudentAverage(studentId, average) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/department/students/${studentId}/average`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ average: parseFloat(average) })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // تحديث البيانات المحلية
+                    const studentIndex = appState.allStudents.findIndex(s => s._id === studentId);
+                    if (studentIndex !== -1) {
+                        appState.allStudents[studentIndex].average = parseFloat(average);
+                    }
+                    
+                    showAlert('results-alert', 'تم تحديث المعدل بنجاح', 'success');
+                } else {
+                    showAlert('results-alert', data.message || 'حدث خطأ في تحديث المعدل', 'error');
+                }
+            } catch (error) {
+                console.error('Error updating average:', error);
+                showAlert('results-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        }
+
+        // حذف طالب
+        async function deleteStudent(studentId) {
+            if (!confirm('هل أنت متأكد من حذف هذا الطالب؟')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/department/students/${studentId}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // تحديث البيانات المحلية
+                    appState.allStudents = appState.allStudents.filter(s => s._id !== studentId);
+                    
+                    updateStudentsTable();
+                    updateStatistics();
+                    showAlert('results-alert', 'تم حذف الطالب بنجاح', 'success');
+                } else {
+                    showAlert('results-alert', data.message || 'حدث خطأ في حذف الطالب', 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting student:', error);
+                showAlert('results-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        }
+
+        // تغيير تخصص الطالب
+        async function changeSpecialty(studentId, specialty) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/department/students/${studentId}/specialty`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ assignedSpecialty: specialty })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // تحديث البيانات المحلية
+                    const studentIndex = appState.allStudents.findIndex(s => s._id === studentId);
+                    if (studentIndex !== -1) {
+                        appState.allStudents[studentIndex].assignedSpecialty = specialty;
+                        appState.allStudents[studentIndex].status = specialty ? 'assigned' : 'pending';
+                    }
+                    
+                    updateStudentsTable();
+                    showAlert('results-alert', 'تم تغيير التخصص بنجاح', 'success');
+                } else {
+                    showAlert('results-alert', data.message || 'حدث خطأ في تغيير التخصص', 'error');
+                }
+            } catch (error) {
+                console.error('Error changing specialty:', error);
+                showAlert('results-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        }
+
+        // عرض رسالة تنبيه
+        function showAlert(containerId, message, type) {
+            // إنشاء عنصر التنبيه إذا لم يكن موجوداً
+            let alertContainer = document.getElementById(containerId);
+            if (!alertContainer) {
+                alertContainer = document.createElement('div');
+                alertContainer.id = 'dynamic-alert';
+                document.querySelector('.container').prepend(alertContainer);
+            }
+            
+            alertContainer.textContent = message;
+            alertContainer.className = `alert alert-${type}`;
+            alertContainer.classList.remove('hidden');
+            
+            // إخفاء الرسالة بعد 5 ثواني
+            setTimeout(() => {
+                alertContainer.classList.add('hidden');
+            }, 5000);
+        }
+
+        // تبديل وضع تعديل المناصب
+        function toggleSeatsEdit(type) {
+            const seatsValue = document.getElementById(`${type}-seats`);
+            const seatsInput = document.getElementById(`${type}-seats-input`);
+            const editButton = document.getElementById(`edit-${type}-seats`);
+            const seatsButtons = document.getElementById('seats-buttons');
+            
+            seatsValue.style.display = 'none';
+            seatsInput.style.display = 'block';
+            editButton.style.display = 'none';
+            seatsButtons.style.display = 'block';
+        }
+
+        // إلغاء تعديل المناصب
+        function cancelSeatsEdit() {
+            document.getElementById('automation-seats').style.display = 'block';
+            document.getElementById('petroleum-seats').style.display = 'block';
+            document.getElementById('automation-seats-input').style.display = 'none';
+            document.getElementById('petroleum-seats-input').style.display = 'none';
+            document.getElementById('edit-automation-seats').style.display = 'inline-block';
+            document.getElementById('edit-petroleum-seats').style.display = 'inline-block';
+            document.getElementById('seats-buttons').style.display = 'none';
+            
+            // إعادة تعيين القيم
+            document.getElementById('automation-seats-input').value = appState.settings.automationSeats;
+            document.getElementById('petroleum-seats-input').value = appState.settings.petroleumSeats;
+        }
+
+        // حفظ المناصب
+        async function saveSeats() {
+            const automationSeats = parseInt(document.getElementById('automation-seats-input').value);
+            const petroleumSeats = parseInt(document.getElementById('petroleum-seats-input').value);
+            
+            if (isNaN(automationSeats) || isNaN(petroleumSeats) || automationSeats < 0 || petroleumSeats < 0) {
+                showAlert('results-alert', 'يرجى إدخال أرقام صحيحة للمناصب', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/department/settings/seats`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ automationSeats, petroleumSeats })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    appState.settings = data.settings;
+                    updateSeatsDisplay();
+                    cancelSeatsEdit();
+                    showAlert('results-alert', 'تم حفظ المناصب بنجاح', 'success');
+                } else {
+                    showAlert('results-alert', data.message || 'حدث خطأ في حفظ المناصب', 'error');
+                }
+            } catch (error) {
+                console.error('Error saving seats:', error);
+                showAlert('results-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        }
+
+        // احتساب النتائج
+        async function calculateResults() {
+            if (!confirm('هل أنت متأكد من احتساب النتائج؟ سيتم توزيع الطلبة حسب المعدل.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/department/calculate-results`, {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('results-alert', data.message, 'success');
+                    loadDepartmentDashboard();
+                    
+                    // عرض الإحصائيات
+                    const stats = data.statistics;
+                    alert(`تم توزيع الطلبة بنجاح!\n\nإجمالي الطلبة: ${stats.totalStudents}\nالمعينون في الآلية العامة: ${stats.automationAssigned}\nالمعينون في الآتية البترولية: ${stats.petroleumAssigned}`);
+                } else {
+                    showAlert('results-alert', data.message || 'حدث خطأ في احتساب النتائج', 'error');
+                }
+            } catch (error) {
+                console.error('Error calculating results:', error);
+                showAlert('results-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        }
+
+        // إعادة تعيين النتائج
+        async function resetResults() {
+            if (!confirm('هل أنت متأكد من إعادة تعيين النتائج؟ سيتم إلغاء تعيين جميع الطلبة.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/department/reset-results`, {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('results-alert', data.message, 'success');
+                    loadDepartmentDashboard();
+                } else {
+                    showAlert('results-alert', data.message || 'حدث خطأ في إعادة التعيين', 'error');
+                }
+            } catch (error) {
+                console.error('Error resetting results:', error);
+                showAlert('results-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        }
+
+        // تصدير النتائج
+        async function exportResults() {
+            try {
+                // إنشاء CSV من البيانات
+                let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+                csvContent += "رقم التسجيل,البريد الإلكتروني,رقم الهاتف,المعدل,التخصص المطلوب,التخصص المعين,الحالة\n";
+                
+                appState.allStudents.forEach(student => {
+                    const specialtyChoiceText = student.specialtyChoice === 'automation' ? 'الآلية العامة' : 'الآتية بترولية';
+                    const assignedSpecialtyText = student.assignedSpecialty === 'automation' ? 'الآلية العامة' : 
+                                                 student.assignedSpecialty === 'petroleum' ? 'الآتية بترولية' : 'لم يتم التعيين';
+                    const statusText = student.status === 'assigned' ? 'معين' : 'قيد الانتظار';
+                    
+                    const row = [
+                        student.registrationNumber,
+                        student.email,
+                        student.phone,
+                        student.average,
+                        specialtyChoiceText,
+                        assignedSpecialtyText,
+                        statusText
+                    ].join(",");
+                    
+                    csvContent += row + "\n";
+                });
+                
+                // إنشاء رابط للتحميل
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "نتائج_توجيه_الطلبة.csv");
+                document.body.appendChild(link);
+                
+                link.click();
+                document.body.removeChild(link);
+                
+                showAlert('results-alert', 'تم تصدير النتائج بنجاح', 'success');
+            } catch (error) {
+                console.error('Error exporting results:', error);
+                showAlert('results-alert', 'حدث خطأ في تصدير النتائج', 'error');
+            }
+        }
+
+        // تصفية الطلبة
+        function filterStudents() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            const filteredStudents = appState.allStudents.filter(student => 
+                student.registrationNumber.toLowerCase().includes(searchTerm) ||
+                student.email.toLowerCase().includes(searchTerm) ||
+                student.phone.includes(searchTerm)
+            );
+            
+            updateFilteredTable(filteredStudents);
+        }
+
+        // تحديث الجدول بعد التصفية
+        function updateFilteredTable(students) {
+            const tbody = studentsTable.querySelector('tbody');
+            const noStudentsRow = document.getElementById('noStudentsRow');
+            
+            // إزالة الصفوف القديمة
+            tbody.querySelectorAll('tr:not(#noStudentsRow)').forEach(row => row.remove());
+            
+            if (students.length === 0) {
+                noStudentsRow.style.display = 'table-row';
+                return;
+            }
+            
+            noStudentsRow.style.display = 'none';
+            
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                
+                const specialtyChoiceText = student.specialtyChoice === 'automation' ? 'الآلية العامة' : 'الآتية بترولية';
+                const assignedSpecialtyText = student.assignedSpecialty === 'automation' ? 'الآلية العامة' : 
+                                             student.assignedSpecialty === 'petroleum' ? 'الآتية بترولية' : 'لم يتم التعيين';
+                
+                row.innerHTML = `
+                    <td>${student.registrationNumber}</td>
+                    <td>${student.email}</td>
+                    <td>${student.phone}</td>
+                    <td>
+                        <input type="number" min="0" max="20" step="0.01" 
+                               value="${student.average || 0}" 
+                               onchange="updateStudentAverage('${student._id}', this.value)"
+                               style="width: 80px; padding: 5px;">
+                    </td>
+                    <td>${specialtyChoiceText}</td>
+                    <td>${assignedSpecialtyText}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn btn-primary" onclick="changeSpecialty('${student._id}', 'automation')">
+                                <i class="fas fa-robot"></i> آلية
+                            </button>
+                            <button class="btn btn-warning" onclick="changeSpecialty('${student._id}', 'petroleum')">
+                                <i class="fas fa-oil-can"></i> بترولية
+                            </button>
+                            <button class="btn btn-success" onclick="changeSpecialty('${student._id}', '')">
+                                <i class="fas fa-times"></i> إلغاء
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteStudent('${student._id}')" style="background-color: #dc3545;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام توجيه الطلبة - قسم الإلكترونيك والاتصالات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset وإعدادات أساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --gradient: linear-gradient(135deg, #2c3e50, #3498db);
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* تصميم الهيدر */
+        .header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* تصميم التنقل */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            flex: 1;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .tab-btn:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .tab-btn.active {
+            color: var(--secondary-color);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px 2px 0 0;
+        }
+
+        /* تصميم المحتوى الرئيسي */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* تصميم البطاقات */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-color);
+        }
+
+        .card-header i {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-left: 15px;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .card-header h2 {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+        }
+
+        /* تصميم النماذج */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        /* تصميم الأزرار */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* تصميم الجداول */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            min-width: 800px;
+        }
+
+        thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:nth-child(even):hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        /* تصميم المعلومات حول التخصصات */
+        .specialties {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .specialty-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .specialty-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .specialty-header {
+            padding: 25px;
+            color: white;
+            text-align: center;
+        }
+
+        .specialty-automation .specialty-header {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+        }
+
+        .specialty-petroleum .specialty-header {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .specialty-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .specialty-body {
+            padding: 25px;
+        }
+
+        .specialty-body ul {
+            list-style-type: none;
+            padding-right: 0;
+        }
+
+        .specialty-body li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-right: 25px;
+        }
+
+        .specialty-body li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        /* تصميم رسائل التنبيه */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .alert-success {
+            background-color: rgba(39, 174, 96, 0.15);
+            color: #27ae60;
+            border-right: 4px solid #27ae60;
+        }
+
+        .alert-error {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            border-right: 4px solid #e74c3c;
+        }
+
+        .alert-info {
+            background-color: rgba(52, 152, 219, 0.15);
+            color: #3498db;
+            border-right: 4px solid #3498db;
+        }
+
+        /* تصميم الفوتر */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .developers {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .developer {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* تصميم محدد النتائج */
+        .results-summary {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .result-box h3 {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .result-automation .result-value {
+            color: var(--secondary-color);
+        }
+
+        .result-petroleum .result-value {
+            color: var(--accent-color);
+        }
+
+        /* تصميم متجاوب للهواتف */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .logo i {
+                font-size: 1.8rem;
+            }
+            
+            .tab-btn {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .card-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .specialties {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-col {
+                min-width: 100%;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 12px 15px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 0.95rem;
+            }
+            
+            .tab-btn {
+                font-size: 0.9rem;
+                padding: 10px 12px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .card-header i {
+                margin-bottom: 10px;
+                margin-left: 0;
+            }
+            
+            .developers {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* تخصيصات إضافية */
+        .hidden {
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning-color);
+        }
+
+        .status-assigned {
+            background-color: rgba(39, 174, 96, 0.2);
+            color: var(--success-color);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-access {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .admin-access a {
+            background-color: var(--warning-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .admin-access a:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h1>جامعة قاصدي مرباح - ورقلة</h1>
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+            </div>
+            <p>قسم الإلكترونيك والاتصالات - نظام توجيه طلبة السنة الثالثة للتخصص في الآلية العامة أو الآتية بترولية</p>
+        </div>
+    </header>
+
+    <!-- أزرار التنقل -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" data-tab="student-form">استمارة الترشح</button>
+        <button class="tab-btn" data-tab="specialties-info">معلومات التخصصات</button>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <!-- قسم استمارة الطالب -->
+        <div id="student-form" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-graduate"></i>
+                    <h2>استمارة ترشح الطالب</h2>
+                </div>
+                <div id="form-alert" class="alert hidden"></div>
+                <form id="studentRegistrationForm">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="registrationNumber">رقم التسجيل</label>
+                            <input type="text" id="registrationNumber" required placeholder="أدخل رقم التسجيل">
+                        </div>
+                        <div class="form-col">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" required placeholder="example@univ-ouargla.dz">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="phone">رقم الهاتف</label>
+                            <input type="tel" id="phone" required placeholder="07XXXXXXXX">
+                        </div>
+                        <div class="form-col">
+                            <label for="birthDate">تاريخ الميلاد</label>
+                            <input type="date" id="birthDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="bacYear">سنة البكالوريا</label>
+                            <input type="number" id="bacYear" min="2000" max="2024" required placeholder="مثال: 2023">
+                        </div>
+                        <div class="form-col">
+                            <label for="specialtyChoice">التخصص المطلوب</label>
+                            <select id="specialtyChoice" required>
+                                <option value="">اختر التخصص</option>
+                                <option value="automation">الآلية العامة (Automation)</option>
+                                <option value="petroleum">الآتية بترولية (Petroleum Instrumentation)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-paper-plane"></i> تقديم الطلب
+                    </button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-history"></i>
+                    <h2>طلباتك السابقة</h2>
+                </div>
+                <div class="table-container">
+                    <table id="previousApplicationsTable">
+                        <thead>
+                            <tr>
+                                <th>رقم التسجيل</th>
+                                <th>التخصص المطلوب</th>
+                                <th>تاريخ التقديم</th>
+                                <th>الحالة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="noApplicationsRow">
+                                <td colspan="4" style="text-align: center; padding: 30px;">لا توجد طلبات سابقة</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم معلومات التخصصات -->
+        <div id="specialties-info" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>معلومات حول التخصصات المتاحة</h2>
+                </div>
+                
+                <div class="specialties">
+                    <!-- تخصص الآلية العامة -->
+                    <div class="specialty-card specialty-automation">
+                        <div class="specialty-header">
+                            <div class="specialty-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h2>الآلية العامة (Automation)</h2>
+                        </div>
+                        <div class="specialty-body">
+                            <p>يركز هذا التخصص على تصميم وتنفيذ أنظمة التحكم الآلي في المصانع والمنشآت الصناعية المختلفة.</p>
+                            <h3 style="margin-top: 20px; margin-bottom: 10px;">المجالات الرئيسية:</h3>
+                            <ul>
+                                <li>أنظمة التحكم الصناعي</li>
+                                <li>الروبوتات الصناعية</li>
+                                <li>أنظمة التحكم المنطقي المبرمج (PLC)</li>
+                                <li>الأتمتة الصناعية</li>
+                                <li>أنظمة الرؤية الحاسوبية</li>
+                                <li>إنترنت الأشياء الصناعي (IIoT)</li>
+                            </ul>
+                            <div style="margin-top: 20px; padding: 15px; background-color: rgba(52, 152, 219, 0.1); border-radius: 8px;">
+                                <p><strong>فرص العمل:</strong> مصانع الإنتاج، شركات الطاقة، قطاع النفط والغاز، الشركات الصناعية.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- تخصص الآتية بترولية -->
+                    <div class="specialty-card specialty-petroleum">
+                        <div class="specialty-header">
+                            <div class="specialty-icon">
+                                <i class="fas fa-oil-can"></i>
+                            </div>
+                            <h2>الآتية بترولية (Petroleum Instrumentation)</h2>
+                        </div>
+                        <div class="specialty-body">
+                            <p>يركز هذا التخصص على أدوات القياس والتحكم المستخدمة في صناعة النفط والغاز ومعالجة المواد البترولية.</p>
+                            <h3 style="margin-top: 20px; margin-bottom: 10px;">المجالات الرئيسية:</h3>
+                            <ul>
+                                <li>أدوات قياس ومراقبة العمليات البترولية</li>
+                                <li>أنظمة التحكم في مصافي النفط</li>
+                                <li>أجهزة القياس المتخصصة للصناعات البترولية</li>
+                                <li>أنظمة السلامة في المنشآت البترولية</li>
+                                <li>مراقبة عمليات الحفر والإنتاج</li>
+                                <li>أنظمة التحكم في خطوط الأنابيب</li>
+                            </ul>
+                            <div style="margin-top: 20px; padding: 15px; background-color: rgba(231, 76, 60, 0.1); border-radius: 8px;">
+                                <p><strong>فرص العمل:</strong> شركات النفط والغاز، مصافي البترول، محطات المعالجة، شركات الحفر والإنتاج.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- رابط الدخول لواجهة الإدارة (مخفي للطلاب العاديين) -->
+    <div class="admin-access hidden">
+        <a href="/admin.html">
+            <i class="fas fa-user-tie"></i>
+            <span>دخول رئيس القسم</span>
+        </a>
+    </div>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>جامعة قاصدي مرباح - ورقلة<br>قسم الإلكترونيك والاتصالات</p>
+            <p>نظام توجيه طلبة السنة الثالثة - إصدار 2024</p>
+            <div class="developers">
+                <div class="developer">عامري رياض</div>
+                <div class="developer">يوسف مهدي</div>
+                <div class="developer">راوة نور السلام</div>
+            </div>
+            <p class="copyright">تم تطوير هذا الموقع من قبل طلبة القسم تحت إشراف الأستاذ عشبي محمد السيعد</p>
+        </div>
+    </footer>
+
+    <script>
+        // إعدادات API
+        const API_BASE_URL = '/api';
+        
+        // حالة التطبيق
+        let appState = {
+            currentStudent: null
+        };
+
+        // DOM Elements
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const studentForm = document.getElementById('studentRegistrationForm');
+        const previousApplicationsTable = document.getElementById('previousApplicationsTable');
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            setupEventListeners();
+        });
+
+        // تهيئة التطبيق
+        function initializeApp() {
+            // تعيين تاريخ اليوم كأقصى تاريخ للتاريخ الميلادي
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('birthDate').max = today;
+            
+            // تعيين سنة البكالوريا (الحد الأدنى 2000 والحد الأقصى السنة الحالية)
+            const currentYear = new Date().getFullYear();
+            document.getElementById('bacYear').max = currentYear;
+            document.getElementById('bacYear').min = 2000;
+            
+            // إخفاء رابط الدخول للإدارة (سيكون مرئياً فقط لرئيس القسم)
+            // في الواقع، هذا الرابط يجب أن يعطى لرئيس القسم فقط
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // تبديل الألسنة
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+
+            // تقديم طلب الطالب
+            if (studentForm) {
+                studentForm.addEventListener('submit', handleStudentSubmission);
+            }
+        }
+
+        // تبديل الألسنة
+        function switchTab(tabId) {
+            // تحديد الزر النشط
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('data-tab') === tabId) {
+                    button.classList.add('active');
+                }
+            });
+
+            // عرض المحتوى النشط
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                }
+            });
+
+            // إذا كان التبويب هو استمارة الطالب، تحميل الطلبات السابقة
+            if (tabId === 'student-form') {
+                loadStudentApplications();
+            }
+        }
+
+        // معالجة تقديم طلب الطالب
+        async function handleStudentSubmission(e) {
+            e.preventDefault();
+            
+            const registrationNumber = document.getElementById('registrationNumber').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const bacYear = document.getElementById('bacYear').value;
+            const specialtyChoice = document.getElementById('specialtyChoice').value;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/students/apply`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        registrationNumber,
+                        email,
+                        phone,
+                        birthDate,
+                        bacYear: parseInt(bacYear),
+                        specialtyChoice
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('form-alert', 'تم تقديم طلبك بنجاح!', 'success');
+                    studentForm.reset();
+                    loadStudentApplications();
+                } else {
+                    showAlert('form-alert', data.message || 'حدث خطأ في تقديم الطلب', 'error');
+                }
+            } catch (error) {
+                console.error('Error submitting application:', error);
+                showAlert('form-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        }
+
+        // تحميل طلبات الطالب السابقة
+        async function loadStudentApplications() {
+            const registrationNumber = document.getElementById('registrationNumber').value;
+            
+            if (!registrationNumber) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/students/${registrationNumber}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    updateApplicationsTable([data.student]);
+                } else {
+                    updateApplicationsTable([]);
+                }
+            } catch (error) {
+                console.error('Error loading applications:', error);
+                updateApplicationsTable([]);
+            }
+        }
+
+        // تحديث جدول الطلبات السابقة
+        function updateApplicationsTable(applications) {
+            const tbody = previousApplicationsTable.querySelector('tbody');
+            const noApplicationsRow = document.getElementById('noApplicationsRow');
+            
+            // إزالة الصفوف القديمة
+            tbody.querySelectorAll('tr:not(#noApplicationsRow)').forEach(row => row.remove());
+            
+            if (applications.length === 0) {
+                noApplicationsRow.style.display = 'table-row';
+                return;
+            }
+            
+            noApplicationsRow.style.display = 'none';
+            
+            applications.forEach(app => {
+                const row = document.createElement('tr');
+                
+                const statusText = app.status === 'assigned' ? 'معين' : 'قيد الانتظار';
+                const statusClass = app.status === 'assigned' ? 'status-assigned' : 'status-pending';
+                
+                row.innerHTML = `
+                    <td>${app.registrationNumber}</td>
+                    <td>${app.specialtyChoice === 'automation' ? 'الآلية العامة' : 'الآتية بترولية'}</td>
+                    <td>${new Date(app.applicationDate).toLocaleDateString('ar-SA')}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // عرض رسالة تنبيه
+        function showAlert(containerId, message, type) {
+            const alertContainer = document.getElementById(containerId);
+            
+            alertContainer.textContent = message;
+            alertContainer.className = `alert alert-${type}`;
+            alertContainer.classList.remove('hidden');
+            
+            // إخفاء الرسالة بعد 5 ثواني
+            setTimeout(() => {
+                alertContainer.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
