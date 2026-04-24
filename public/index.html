@@ -2,1062 +2,1550 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام توجيه الطلبة - قسم الإلكترونيك والاتصالات</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>جامعة ورقلة | منصة التوجيه المتكاملة ST</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS Reset وإعدادات أساسية */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --gradient: linear-gradient(135deg, #2c3e50, #3498db);
         }
 
         body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            direction: rtl;
+            color: #1e2a3e;
             min-height: 100vh;
         }
 
-        /* تصميم الهيدر */
-        .header {
-            background: var(--gradient);
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        .hero {
+            background: linear-gradient(125deg, #0b2b3b 0%, #1a5f6e 100%);
             color: white;
-            padding: 1.5rem 0;
+            padding: 40px 20px 50px;
+            border-radius: 0 0 40px 40px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             position: relative;
             overflow: hidden;
         }
 
-        .header::before {
-            content: "";
+        .hero::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
             background-size: cover;
+            opacity: 0.3;
         }
 
-        .header-content {
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             position: relative;
             z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
         }
 
-        .logo-container {
+        .hero p {
+            opacity: 0.95;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .period-badge {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            display: inline-block;
+            padding: 10px 28px;
+            border-radius: 50px;
+            margin-top: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tabs-wrapper {
+            background: white;
+            border-radius: 60px;
+            padding: 8px;
+            margin: 30px 0 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
             flex-wrap: wrap;
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            background-color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
+            gap: 8px;
             justify-content: center;
-            margin: 0 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            animation: pulse 2s infinite;
-        }
-
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-        }
-
-        .header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* تصميم التنقل */
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            margin-bottom: 30px;
-            border-radius: 0 0 10px 10px;
-            overflow: hidden;
         }
 
         .tab-btn {
-            padding: 15px 30px;
-            background: none;
+            flex: 1;
+            min-width: 120px;
+            background: transparent;
             border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark-color);
+            padding: 14px 20px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            flex: 1;
-            text-align: center;
-            max-width: 300px;
+            font-size: 0.95rem;
+            color: #2c3e4e;
         }
 
-        .tab-btn:hover {
-            background-color: rgba(52, 152, 219, 0.1);
+        .tab-btn i {
+            margin-left: 8px;
         }
 
         .tab-btn.active {
-            color: var(--secondary-color);
+            background: linear-gradient(95deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 6px 15px rgba(102,126,234,0.3);
+            transform: translateY(-2px);
         }
 
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: var(--secondary-color);
-            border-radius: 2px 2px 0 0;
-        }
-
-        /* تصميم المحتوى الرئيسي */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 40px;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* تصميم البطاقات */
         .card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            background: white;
+            border-radius: 32px;
             padding: 30px;
-            margin-bottom: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
         }
 
         .card-header {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--light-color);
+            gap: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
         }
 
         .card-header i {
             font-size: 1.8rem;
-            color: var(--secondary-color);
-            margin-left: 15px;
-            background-color: rgba(52, 152, 219, 0.1);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             padding: 12px;
-            border-radius: 10px;
-        }
-
-        .card-header h2 {
-            font-size: 1.6rem;
-            color: var(--primary-color);
-        }
-
-        /* تصميم النماذج */
-        .form-group {
-            margin-bottom: 20px;
+            border-radius: 20px;
+            color: white;
         }
 
         .form-row {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
+            margin-bottom: 20px;
         }
 
         .form-col {
             flex: 1;
-            min-width: 250px;
+            min-width: 200px;
         }
 
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark-color);
+            font-weight: 700;
+            color: #2c3e4e;
+            font-size: 0.85rem;
         }
 
-        input, select {
+        input, select, textarea {
             width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.2s;
+            background: #fefefe;
+            font-size: 0.9rem;
         }
 
-        input:focus, select:focus {
-            border-color: var(--secondary-color);
+        input:focus, select:focus, textarea:focus {
+            border-color: #667eea;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
         }
 
-        /* تصميم الأزرار */
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        }
-
-        .btn-success {
-            background-color: var(--success-color);
-            color: white;
-        }
-
-        .btn-success:hover {
-            background-color: #229954;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
-        }
-
-        .btn-warning {
-            background-color: var(--warning-color);
-            color: white;
-        }
-
-        .btn-warning:hover {
-            background-color: #e67e22;
-            transform: translateY(-2px);
-        }
-
-        .btn-block {
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        /* تصميم الجداول */
-        .table-container {
-            overflow-x: auto;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            min-width: 800px;
-        }
-
-        thead {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        th, td {
-            padding: 16px 20px;
-            text-align: right;
-            border-bottom: 1px solid #eee;
-        }
-
-        tbody tr {
-            transition: background-color 0.2s ease;
-        }
-
-        tbody tr:hover {
-            background-color: rgba(52, 152, 219, 0.05);
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tbody tr:nth-child(even):hover {
-            background-color: rgba(52, 152, 219, 0.05);
-        }
-
-        /* تصميم المعلومات حول التخصصات */
-        .specialties {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .specialty-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
-        }
-
-        .specialty-card:hover {
-            transform: translateY(-8px);
-        }
-
-        .specialty-header {
+        .pref-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border-radius: 28px;
             padding: 25px;
-            color: white;
-            text-align: center;
-        }
-
-        .specialty-automation .specialty-header {
-            background: linear-gradient(135deg, #3498db, #2c3e50);
-        }
-
-        .specialty-petroleum .specialty-header {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-        }
-
-        .specialty-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .specialty-body {
-            padding: 25px;
-        }
-
-        .specialty-body ul {
-            list-style-type: none;
-            padding-right: 0;
-        }
-
-        .specialty-body li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            position: relative;
-            padding-right: 25px;
-        }
-
-        .specialty-body li:before {
-            content: "✓";
-            position: absolute;
-            right: 0;
-            color: var(--success-color);
-            font-weight: bold;
-        }
-
-        /* تصميم رسائل التنبيه */
-        .alert {
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: slideIn 0.5s ease;
-        }
-
-        .alert-success {
-            background-color: rgba(39, 174, 96, 0.15);
-            color: #27ae60;
-            border-right: 4px solid #27ae60;
-        }
-
-        .alert-error {
-            background-color: rgba(231, 76, 60, 0.15);
-            color: #e74c3c;
-            border-right: 4px solid #e74c3c;
-        }
-
-        .alert-info {
-            background-color: rgba(52, 152, 219, 0.15);
-            color: #3498db;
-            border-right: 4px solid #3498db;
-        }
-
-        /* تصميم الفوتر */
-        .footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .developers {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
             margin: 20px 0;
+            border: 1px solid #e9ecef;
         }
 
-        .developer {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-        }
-
-        .copyright {
-            margin-top: 20px;
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-
-        /* تصميم محدد النتائج */
-        .results-summary {
+        .preference-item {
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 12px;
+            align-items: center;
+            background: white;
+            padding: 12px 15px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.2s;
         }
 
-        .result-box {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            flex: 1;
+        .preference-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateX(-5px);
+        }
+
+        .pref-num {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .preference-item select {
+            flex: 3;
             min-width: 200px;
         }
 
-        .result-box h3 {
-            font-size: 1.1rem;
-            color: var(--dark-color);
-            margin-bottom: 10px;
+        .pref-external-tag {
+            background: linear-gradient(135deg, #a569bd, #8e44ad);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .result-value {
-            font-size: 2.5rem;
+        .pref-internal-tag {
+            background: linear-gradient(135deg, #1e6f5c, #0f4c3f);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .remove-pref {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .remove-pref:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(231,76,60,0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, #667eea, #764ba2);
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 50px;
+            color: white;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #8e44ad, #6c3483);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
             font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .result-automation .result-value {
-            color: var(--secondary-color);
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(142,68,173,0.3);
         }
 
-        .result-petroleum .result-value {
-            color: var(--accent-color);
+        .progress-bar-container {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 20px;
+            margin: 10px 0;
+            overflow: hidden;
         }
 
-        /* تصميم متجاوب للهواتف */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
+        .progress-bar {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-bar.internal {
+            background: linear-gradient(90deg, #1e6f5c, #0f4c3f);
+        }
+
+        .progress-bar.external {
+            background: linear-gradient(90deg, #8e44ad, #6c3483);
+        }
+
+        .save-indicator {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 20px rgba(39,174,96,0.3);
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+            font-weight: 600;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
             }
-            
-            .logo {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .logo i {
-                font-size: 1.8rem;
-            }
-            
-            .tab-btn {
-                padding: 12px 15px;
-                font-size: 1rem;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            .card-header h2 {
-                font-size: 1.3rem;
-            }
-            
-            .specialties {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            
-            .form-col {
-                min-width: 100%;
-            }
-            
-            table {
-                font-size: 0.9rem;
-            }
-            
-            th, td {
-                padding: 12px 15px;
-            }
-            
-            .btn {
-                padding: 12px 20px;
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }
 
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .header p {
-                font-size: 0.95rem;
-            }
-            
-            .tab-btn {
-                font-size: 0.9rem;
-                padding: 10px 12px;
-            }
-            
-            .card-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .card-header i {
-                margin-bottom: 10px;
-                margin-left: 0;
-            }
-            
-            .developers {
-                flex-direction: column;
-                align-items: center;
-            }
+        /* Success Modal Styles */
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
         }
 
-        /* الرسوم المتحركة */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        @keyframes fadeInUp {
+        .success-modal-content {
+            background: white;
+            border-radius: 40px;
+            max-width: 500px;
+            width: 90%;
+            padding: 0;
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideUp {
             from {
+                transform: translateY(50px);
                 opacity: 0;
-                transform: translateY(20px);
             }
             to {
-                opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
                 opacity: 1;
-                transform: translateX(0);
             }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .success-modal-header {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+            padding: 25px;
+            text-align: center;
         }
 
-        /* تخصيصات إضافية */
+        .success-modal-header i {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .success-modal-header h2 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        .success-modal-body {
+            padding: 30px;
+        }
+
+        .credentials-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px dashed #667eea;
+        }
+
+        .credentials-box .label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+
+        .credentials-box .value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #667eea;
+            letter-spacing: 2px;
+            direction: ltr;
+            display: inline-block;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 12px;
+            font-family: monospace;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .info-row .info-label {
+            font-weight: 600;
+            color: #2c3e4e;
+        }
+
+        .info-row .info-value {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .warning-text {
+            background: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success-modal-footer {
+            padding: 20px 30px 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: 14px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .btn-modal-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-modal-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .btn-modal-secondary {
+            background: #e2e8f0;
+            color: #2c3e4e;
+        }
+
+        .btn-modal-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        /* Edit Mode Styles */
+        .edit-mode-banner {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .edit-mode-banner i {
+            font-size: 1.2rem;
+        }
+
+        .btn-edit-mode {
+            background: white;
+            color: #e67e22;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-edit-mode:hover {
+            transform: scale(1.05);
+        }
+
+        .edit-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-edit-save {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-edit-cancel {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .password-creation {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed #667eea;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border-right: 4px solid #28a745;
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border-right: 4px solid #dc3545;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+            border-right: 4px solid #ffc107;
+        }
+
         .hidden {
             display: none;
         }
 
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-pending {
-            background-color: rgba(243, 156, 18, 0.2);
-            color: var(--warning-color);
-        }
-
-        .status-assigned {
-            background-color: rgba(39, 174, 96, 0.2);
-            color: var(--success-color);
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .admin-access {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-
-        .admin-access a {
-            background-color: var(--warning-color);
+        .student-dashboard {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 32px;
+            padding: 25px;
             color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-            transition: all 0.3s ease;
+            margin-top: 25px;
         }
 
-        .admin-access a:hover {
-            background-color: #e67e22;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        .edit-history-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0b2b3b, #1a5f6e);
+            color: #aac8d4;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 30px 30px 0 0;
+        }
+
+        @media (max-width: 768px) {
+            .preference-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .tab-btn {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- الهيدر -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-container">
-                <div class="logo">
-                    <i class="fas fa-university"></i>
-                </div>
-                <h1>جامعة قاصدي مرباح - ورقلة</h1>
-                <div class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-            </div>
-            <p>قسم الإلكترونيك والاتصالات - نظام توجيه طلبة السنة الثالثة للتخصص في الآلية العامة أو الآتية بترولية</p>
-        </div>
-    </header>
 
-    <!-- أزرار التنقل -->
-    <div class="nav-tabs">
-        <button class="tab-btn active" data-tab="student-form">استمارة الترشح</button>
-        <button class="tab-btn" data-tab="specialties-info">معلومات التخصصات</button>
+<div class="hero">
+    <h1>جامعة قاصدي مرباح - ورقلة</h1>
+    <p>نظام التوجيه الذكي | السنة الأولى ST → السنة الثانية</p>
+    <div class="period-badge">
+        <i class="fas fa-calendar-alt"></i> 24 أفريل - 15 ماي 2026
+    </div>
+</div>
+
+<div class="container">
+    <div class="tabs-wrapper">
+        <button class="tab-btn active" data-tab="registerTab"><i class="fas fa-pen-alt"></i> تسجيل الرغبات</button>
+        <button class="tab-btn" data-tab="specialtiesTab"><i class="fas fa-graduation-cap"></i> التخصصات الداخلية</button>
+        <button class="tab-btn" data-tab="accessTab"><i class="fas fa-id-card"></i> لوحة الطالب</button>
     </div>
 
-    <!-- المحتوى الرئيسي -->
-    <div class="container">
-        <!-- قسم استمارة الطالب -->
-        <div id="student-form" class="tab-content active">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-user-graduate"></i>
-                    <h2>استمارة ترشح الطالب</h2>
+    <div id="registerTab" class="tab-content active">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-user-check"></i>
+                <h2>تسجيل طلب التوجيه</h2>
+            </div>
+            <div id="formAlert" class="alert hidden"></div>
+            
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-col">
+                        <label><i class="fas fa-user"></i> الاسم (عربي)</label>
+                        <input type="text" id="firstNameAr" required placeholder="محمد">
+                    </div>
+                    <div class="form-col">
+                        <label><i class="fas fa-user-tag"></i> اللقب (عربي)</label>
+                        <input type="text" id="lastNameAr" required placeholder="أحمدي">
+                    </div>
                 </div>
-                <div id="form-alert" class="alert hidden"></div>
-                <form id="studentRegistrationForm">
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="registrationNumber">رقم التسجيل</label>
-                            <input type="text" id="registrationNumber" required placeholder="أدخل رقم التسجيل">
-                        </div>
-                        <div class="form-col">
-                            <label for="email">البريد الإلكتروني</label>
-                            <input type="email" id="email" required placeholder="example@univ-ouargla.dz">
-                        </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label><i class="fas fa-font"></i> الاسم (لاتيني)</label>
+                        <input type="text" id="firstNameLat" required placeholder="Mohamed">
+                    </div>
+                    <div class="form-col">
+                        <label><i class="fas fa-font"></i> اللقب (لاتيني)</label>
+                        <input type="text" id="lastNameLat" required placeholder="Ahmadi">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label><i class="fas fa-calendar"></i> تاريخ الميلاد</label>
+                        <input type="date" id="birthDate" required>
+                    </div>
+                    <div class="form-col">
+                        <label><i class="fas fa-map-marker-alt"></i> مكان الميلاد</label>
+                        <input type="text" id="birthPlace" required placeholder="ورقلة">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label><i class="fas fa-id-card"></i> رقم التسجيل</label>
+                        <input type="text" id="regNumber" required placeholder="220123456789">
+                    </div>
+                    <div class="form-col">
+                        <label><i class="fas fa-phone"></i> رقم الهاتف</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label><i class="fas fa-users"></i> الفوج</label>
+                        <select id="group" required>
+                            <option value="">اختر</option>
+                            <option>A1</option><option>A2</option><option>A3</option><option>A4</option>
+                            <option>A5</option><option>A6</option><option>A7</option>
+                            <option>B1</option><option>B2</option><option>B3</option><option>B4</option>
+                            <option>B5</option><option>B6</option><option>B7</option>
+                            <option>C1</option><option>C2</option><option>C3</option><option>C4</option>
+                            <option>C5</option><option>C6</option><option>C7</option>
+                            <option>D1</option><option>D2</option><option>D3</option><option>D4</option>
+                            <option>D5</option><option>D6</option><option>D7</option>
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                        <input type="email" id="email" required>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #e8f4f8, #d1ecf1); border-radius: 20px; padding: 20px; margin-bottom: 25px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span><i class="fas fa-check-circle" style="color: #1e6f5c;"></i> <strong>التخصصات الداخلية الإجبارية</strong></span>
+                        <span style="background: #1e6f5c; color: white; padding: 2px 12px; border-radius: 50px;" id="internalCountDisplay">0/11</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar internal" id="internalProgress" style="width: 0%;"></div>
                     </div>
                     
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0 10px;">
+                        <span><i class="fas fa-globe" style="color: #8e44ad;"></i> <strong>التخصصات الخارجية الاختيارية</strong></span>
+                        <span style="background: #8e44ad; color: white; padding: 2px 12px; border-radius: 50px;" id="externalCountDisplay">0/2</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar external" id="externalProgress" style="width: 0%;"></div>
+                    </div>
+                    <small style="color: #555; display: block; margin-top: 12px;">
+                        <i class="fas fa-info-circle"></i> يجب اختيار 11 تخصص داخلي + يمكن إضافة حتى تخصصين خارجيين (اختياري)
+                    </small>
+                </div>
+
+                <div class="pref-card">
+                    <h3><i class="fas fa-list-ul"></i> قائمة رغباتي</h3>
+                    <div id="preferencesContainer"></div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); border-radius: 20px; padding: 20px; margin-top: 20px;">
+                    <h3 style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <i class="fas fa-plus-circle" style="color: #8e44ad;"></i> 
+                        إضافة تخصص خارج الجامعة 
+                        <span id="externalSlotsInfo" style="font-size: 0.8rem; background: #8e44ad; color: white; padding: 4px 12px; border-radius: 20px;">متبقي 2</span>
+                    </h3>
                     <div class="form-row">
                         <div class="form-col">
-                            <label for="phone">رقم الهاتف</label>
-                            <input type="tel" id="phone" required placeholder="07XXXXXXXX">
+                            <label>اسم التخصص الخارجي</label>
+                            <input type="text" id="externalSpecName" placeholder="مثال: هندسة طبية">
                         </div>
                         <div class="form-col">
-                            <label for="birthDate">تاريخ الميلاد</label>
-                            <input type="date" id="birthDate" required>
+                            <label>الجامعة الخاصة</label>
+                            <input type="text" id="externalUniversity" placeholder="مثال: جامعة قسنطينة">
+                        </div>
+                        <div class="form-col">
+                            <button type="button" id="addExternalSpecialtyBtn" class="btn-secondary" style="width: 100%;">
+                                <i class="fas fa-globe"></i> أضف كرغبة خارجية
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="bacYear">سنة البكالوريا</label>
-                            <input type="number" id="bacYear" min="2000" max="2024" required placeholder="مثال: 2023">
-                        </div>
-                        <div class="form-col">
-                            <label for="specialtyChoice">التخصص المطلوب</label>
-                            <select id="specialtyChoice" required>
-                                <option value="">اختر التخصص</option>
-                                <option value="automation">الآلية العامة (Automation)</option>
-                                <option value="petroleum">الآتية بترولية (Petroleum Instrumentation)</option>
-                            </select>
-                        </div>
+                </div>
+
+                <div class="password-creation">
+                    <h3><i class="fas fa-key"></i> كود الخصوصية (سيتم إنشاؤه تلقائياً)</h3>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> سيتم إنشاء كود خصوصية مكون من 6 أرقام تلقائياً بعد تقديم الطلب. احتفظ به للدخول إلى حسابك.
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-block">
-                        <i class="fas fa-paper-plane"></i> تقديم الطلب
+                </div>
+
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    <i class="fas fa-save"></i> تقديم الطلب وإنشاء كود الخصوصية
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="specialtiesTab" class="tab-content hidden">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-university"></i>
+                <h2>التخصصات الداخلية المتاحة (جامعة ورقلة)</h2>
+            </div>
+            <p style="margin-bottom: 20px; color: #666;">
+                <i class="fas fa-info-circle"></i> يجب اختيار 11 تخصص من هذه القائمة كرغبات إجبارية
+            </p>
+            <div id="specialtiesGrid" class="specialties-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;"></div>
+        </div>
+    </div>
+
+    <div id="accessTab" class="tab-content hidden">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-lock-open"></i>
+                <h2>الوصول إلى ملفي الشخصي</h2>
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label><i class="fas fa-id-card"></i> رقم التسجيل</label>
+                    <input type="text" id="accessRegNumber" placeholder="رقم التسجيل">
+                </div>
+                <div class="form-col">
+                    <label><i class="fas fa-key"></i> كود الخصوصية</label>
+                    <input type="password" id="accessPrivateCode" placeholder="كود الخصوصية (6 أرقام)">
+                </div>
+                <div class="form-col">
+                    <button id="accessStudentBtn" class="btn-primary" style="width:100%;">
+                        <i class="fas fa-arrow-left"></i> فتح طلبي
                     </button>
-                </form>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-history"></i>
-                    <h2>طلباتك السابقة</h2>
-                </div>
-                <div class="table-container">
-                    <table id="previousApplicationsTable">
-                        <thead>
-                            <tr>
-                                <th>رقم التسجيل</th>
-                                <th>التخصص المطلوب</th>
-                                <th>تاريخ التقديم</th>
-                                <th>الحالة</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="noApplicationsRow">
-                                <td colspan="4" style="text-align: center; padding: 30px;">لا توجد طلبات سابقة</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
+            <div id="studentDynamicPanel" class="hidden"></div>
         </div>
+    </div>
+</div>
 
-        <!-- قسم معلومات التخصصات -->
-        <div id="specialties-info" class="tab-content">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-info-circle"></i>
-                    <h2>معلومات حول التخصصات المتاحة</h2>
+<footer>
+    <i class="fas fa-chalkboard-user"></i> جامعة قاصدي مرباح - ورقلة | خلية التوجيه ST | السنة الجامعية 2025/2026
+</footer>
+
+<script>
+    const API_URL = '/api';
+    let internalSpecialties = [];
+    let currentPreferences = [];
+    let currentEditStudent = null; // Store current student being edited
+    let isEditMode = false;
+
+    async function loadSpecialties() {
+        try {
+            const response = await fetch(`${API_URL}/specialties`);
+            const data = await response.json();
+            if (data.success) {
+                internalSpecialties = data.internalSpecialties;
+                renderSpecialties();
+                renderPreferencesUI();
+            }
+        } catch (error) {
+            console.error('Error loading specialties:', error);
+        }
+    }
+
+    function renderSpecialties() {
+        const container = document.getElementById('specialtiesGrid');
+        if(!container) return;
+        container.innerHTML = internalSpecialties.map(s => `
+            <div class="spec-card" style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                <div class="spec-header" style="padding: 20px; text-align: center; background: linear-gradient(135deg, ${s.branch === 'A' ? '#1a5f6e' : s.branch === 'B' ? '#1e6f5c' : '#e67e22'}, ${s.branch === 'A' ? '#0f3b4f' : s.branch === 'B' ? '#145a4a' : '#b85e0a'});">
+                    <h3 style="color:white">${s.nameAr}</h3>
+                    <div class="spec-code" style="color:white">${s.code}</div>
                 </div>
+                <div class="spec-body" style="padding:15px">
+                    <p>${s.description || 'تخصص معتمد'}</p>
+                    <div style="background:#1e6f5c; color:white; padding:4px 12px; border-radius:20px; display:inline-block; font-size:0.75rem;">
+                        <i class="fas fa-home"></i> داخلي - جامعة ورقلة
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function getCounts() {
+        const internal = currentPreferences.filter(p => p.type === 'internal' && p.code).length;
+        const external = currentPreferences.filter(p => p.type === 'external' && p.code).length;
+        return { internal, external };
+    }
+
+    function updateCountersAndProgress() {
+        const { internal, external } = getCounts();
+        
+        document.getElementById('internalCountDisplay').innerText = `${internal}/11`;
+        document.getElementById('externalCountDisplay').innerText = `${external}/2`;
+        
+        const internalPercent = Math.min((internal / 11) * 100, 100);
+        const externalPercent = Math.min((external / 2) * 100, 100);
+        document.getElementById('internalProgress').style.width = `${internalPercent}%`;
+        document.getElementById('externalProgress').style.width = `${externalPercent}%`;
+        
+        const remainingExternal = 2 - external;
+        document.getElementById('externalSlotsInfo').innerText = `متبقي ${remainingExternal}`;
+        
+        const addExternalBtn = document.getElementById('addExternalSpecialtyBtn');
+        if (external >= 2) {
+            addExternalBtn.disabled = true;
+            addExternalBtn.style.opacity = '0.5';
+        } else {
+            addExternalBtn.disabled = false;
+            addExternalBtn.style.opacity = '1';
+        }
+        
+        const submitBtn = document.getElementById('submitBtn');
+        if (internal >= 11) {
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+        } else {
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+        }
+    }
+
+    function renderPreferencesUI() {
+        const container = document.getElementById('preferencesContainer');
+        if(!container) return;
+        container.innerHTML = '';
+        
+        currentPreferences.forEach((pref, idx) => {
+            const div = document.createElement('div');
+            div.className = 'preference-item';
+            
+            if (pref.type === 'internal') {
+                let options = `<option value="">-- اختر تخصص داخلي --</option>`;
+                options += internalSpecialties.map(s => 
+                    `<option value="${s.code}" data-name="${s.nameAr}" data-branch="${s.branch}" ${pref.code === s.code ? 'selected' : ''}>
+                        [${s.code}] ${s.nameAr}
+                    </option>`
+                ).join('');
                 
-                <div class="specialties">
-                    <!-- تخصص الآلية العامة -->
-                    <div class="specialty-card specialty-automation">
-                        <div class="specialty-header">
-                            <div class="specialty-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <h2>الآلية العامة (Automation)</h2>
+                div.innerHTML = `
+                    <div class="pref-num">${idx+1}</div>
+                    <select data-idx="${idx}" data-type="internal" style="flex: 3;">
+                        ${options}
+                    </select>
+                    <span class="pref-internal-tag"><i class="fas fa-home"></i> داخلي</span>
+                    <button type="button" class="remove-pref" data-idx="${idx}">
+                        <i class="fas fa-trash-alt"></i> تفريغ
+                    </button>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="pref-num" style="background: #8e44ad;">${idx+1}</div>
+                    <div style="flex:3; padding: 10px; background: #f3e5f5; border-radius: 15px;">
+                        <strong>${pref.name || 'فارغ'}</strong><br>
+                        <small style="color: #8e44ad;"><i class="fas fa-university"></i> ${pref.university || 'لم يتم الاختيار'}</small>
+                    </div>
+                    <span class="pref-external-tag"><i class="fas fa-globe"></i> خارجي</span>
+                    <button type="button" class="remove-pref" data-idx="${idx}">
+                        <i class="fas fa-trash-alt"></i> تفريغ
+                    </button>
+                `;
+            }
+            
+            container.appendChild(div);
+        });
+        
+        document.querySelectorAll('.preference-item select[data-type="internal"]').forEach(select => {
+            select.addEventListener('change', (e) => {
+                const idx = parseInt(e.target.dataset.idx);
+                const selectedOpt = e.target.options[e.target.selectedIndex];
+                const val = selectedOpt.value;
+                
+                if(val) {
+                    const spec = internalSpecialties.find(s => s.code === val);
+                    if(spec) {
+                        const isDuplicate = currentPreferences.some((p, i) => 
+                            i !== idx && p.code === val && p.type === 'internal'
+                        );
+                        if(isDuplicate) {
+                            showToastAlert('⚠️ هذا التخصص موجود بالفعل في قائمة رغباتك', 'error');
+                            select.value = currentPreferences[idx].code || '';
+                            return;
+                        }
+                        
+                        currentPreferences[idx] = {
+                            code: spec.code,
+                            specialtyName: spec.nameAr,
+                            name: spec.nameAr,
+                            branch: spec.branch,
+                            type: 'internal',
+                            university: null
+                        };
+                    }
+                } else {
+                    currentPreferences[idx] = { code: '', name: '', branch: '', type: 'internal', university: null };
+                }
+                updateCountersAndProgress();
+            });
+        });
+        
+        document.querySelectorAll('.remove-pref').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.dataset.idx);
+                const targetPref = currentPreferences[idx];
+                
+                if (targetPref.type === 'internal') {
+                    currentPreferences[idx] = { 
+                        code: '', 
+                        name: '', 
+                        branch: '', 
+                        type: 'internal', 
+                        university: null 
+                    };
+                } else if (targetPref.type === 'external') {
+                    currentPreferences[idx] = { 
+                        code: '', 
+                        name: '', 
+                        branch: '', 
+                        type: 'external', 
+                        university: null 
+                    };
+                }
+                
+                renderPreferencesUI();
+                updateCountersAndProgress();
+            });
+        });
+        
+        updateCountersAndProgress();
+    }
+
+    document.getElementById('addExternalSpecialtyBtn')?.addEventListener('click', () => {
+        const specName = document.getElementById('externalSpecName').value.trim();
+        const uniName = document.getElementById('externalUniversity').value.trim();
+        
+        if(!specName || !uniName) {
+            showToastAlert('⚠️ الرجاء إدخال اسم التخصص والجامعة', 'error');
+            return;
+        }
+        
+        const externalCount = currentPreferences.filter(p => p.type === 'external').length;
+        if(externalCount >= 2) {
+            showToastAlert(`⚠️ يمكنك إضافة تخصصين خارجيين فقط`, 'error');
+            return;
+        }
+        
+        const tempCode = 'EXT' + Date.now().toString().slice(-6);
+        
+        const externalPref = {
+            code: tempCode,
+            name: specName,
+            specialtyName: specName,
+            branch: 'H',
+            type: 'external',
+            university: uniName
+        };
+        
+        currentPreferences.push(externalPref);
+        
+        document.getElementById('externalSpecName').value = '';
+        document.getElementById('externalUniversity').value = '';
+        
+        renderPreferencesUI();
+        showToastAlert('✅ تمت إضافة التخصص الخارجي إلى قائمة رغباتك', 'success');
+    });
+
+    // Enhanced Success Modal
+    function showSuccessModal(studentData, privateCode) {
+        const modal = document.createElement('div');
+        modal.className = 'success-modal';
+        
+        const internalCount = studentData.preferences?.filter(p => p.type === 'internal').length || 0;
+        const externalCount = studentData.preferences?.filter(p => p.type === 'external').length || 0;
+        
+        modal.innerHTML = `
+            <div class="success-modal-content">
+                <div class="success-modal-header">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>✅ تم تسجيل الطلب بنجاح!</h2>
+                    <p>تم إنشاء حسابك وحفظ رغباتك</p>
+                </div>
+                <div class="success-modal-body">
+                    <div class="credentials-box">
+                        <div class="label">
+                            <i class="fas fa-key"></i> كود الخصوصية الخاص بك
                         </div>
-                        <div class="specialty-body">
-                            <p>يركز هذا التخصص على تصميم وتنفيذ أنظمة التحكم الآلي في المصانع والمنشآت الصناعية المختلفة.</p>
-                            <h3 style="margin-top: 20px; margin-bottom: 10px;">المجالات الرئيسية:</h3>
-                            <ul>
-                                <li>أنظمة التحكم الصناعي</li>
-                                <li>الروبوتات الصناعية</li>
-                                <li>أنظمة التحكم المنطقي المبرمج (PLC)</li>
-                                <li>الأتمتة الصناعية</li>
-                                <li>أنظمة الرؤية الحاسوبية</li>
-                                <li>إنترنت الأشياء الصناعي (IIoT)</li>
-                            </ul>
-                            <div style="margin-top: 20px; padding: 15px; background-color: rgba(52, 152, 219, 0.1); border-radius: 8px;">
-                                <p><strong>فرص العمل:</strong> مصانع الإنتاج، شركات الطاقة، قطاع النفط والغاز، الشركات الصناعية.</p>
-                            </div>
-                        </div>
+                        <div class="value" id="privateCodeValue">${privateCode}</div>
+                        <small style="display: block; margin-top: 8px;">
+                            <i class="fas fa-phone-alt"></i> يمكنك استخدام هذا الكود للدخول إلى حسابك
+                        </small>
                     </div>
                     
-                    <!-- تخصص الآتية بترولية -->
-                    <div class="specialty-card specialty-petroleum">
-                        <div class="specialty-header">
-                            <div class="specialty-icon">
-                                <i class="fas fa-oil-can"></i>
-                            </div>
-                            <h2>الآتية بترولية (Petroleum Instrumentation)</h2>
-                        </div>
-                        <div class="specialty-body">
-                            <p>يركز هذا التخصص على أدوات القياس والتحكم المستخدمة في صناعة النفط والغاز ومعالجة المواد البترولية.</p>
-                            <h3 style="margin-top: 20px; margin-bottom: 10px;">المجالات الرئيسية:</h3>
-                            <ul>
-                                <li>أدوات قياس ومراقبة العمليات البترولية</li>
-                                <li>أنظمة التحكم في مصافي النفط</li>
-                                <li>أجهزة القياس المتخصصة للصناعات البترولية</li>
-                                <li>أنظمة السلامة في المنشآت البترولية</li>
-                                <li>مراقبة عمليات الحفر والإنتاج</li>
-                                <li>أنظمة التحكم في خطوط الأنابيب</li>
-                            </ul>
-                            <div style="margin-top: 20px; padding: 15px; background-color: rgba(231, 76, 60, 0.1); border-radius: 8px;">
-                                <p><strong>فرص العمل:</strong> شركات النفط والغاز، مصافي البترول، محطات المعالجة، شركات الحفر والإنتاج.</p>
-                            </div>
-                        </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fas fa-user"></i> الاسم الكامل:</span>
+                        <span class="info-value">${studentData.firstNameAr} ${studentData.lastNameAr}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fas fa-id-card"></i> رقم التسجيل:</span>
+                        <span class="info-value">${studentData.registrationNumber}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fas fa-heart"></i> عدد الرغبات:</span>
+                        <span class="info-value">${studentData.preferences?.length || 0} رغبة (${internalCount} داخلي + ${externalCount} خارجي)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fas fa-calendar"></i> تاريخ التسجيل:</span>
+                        <span class="info-value">${new Date().toLocaleDateString('ar-EG')}</span>
+                    </div>
+                    
+                    <div class="warning-text">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 1.2rem;"></i>
+                        <span><strong>تنبيه مهم:</strong> يرجى حفظ كود الخصوصية في مكان آمن. لن تتمكن من استرداده إذا فقدته.</span>
+                    </div>
+                </div>
+                <div class="success-modal-footer">
+                    <button class="btn-modal btn-modal-secondary" id="copyCodeBtn">
+                        <i class="fas fa-copy"></i> نسخ الكود
+                    </button>
+                    <button class="btn-modal btn-modal-primary" id="agreeAndContinueBtn">
+                        <i class="fas fa-check"></i> موافق والمتابعة
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Copy code functionality
+        document.getElementById('copyCodeBtn')?.addEventListener('click', () => {
+            navigator.clipboard.writeText(privateCode);
+            showToastAlert('📋 تم نسخ كود الخصوصية إلى الحافظة', 'success');
+        });
+        
+        // Agree and continue
+        document.getElementById('agreeAndContinueBtn')?.addEventListener('click', () => {
+            modal.remove();
+            // Switch to access tab
+            document.querySelector('[data-tab="accessTab"]').click();
+            // Fill registration number
+            document.getElementById('accessRegNumber').value = studentData.registrationNumber;
+            document.getElementById('accessPrivateCode').value = privateCode;
+            showToastAlert('🎉 يمكنك الآن الدخول إلى حسابك باستخدام كود الخصوصية', 'success');
+        });
+        
+        // Close modal on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    }
+
+    // Enhanced Edit Mode Modal for confirmation
+    function showEditConfirmationModal(studentData, callback) {
+        const modal = document.createElement('div');
+        modal.className = 'success-modal';
+        
+        modal.innerHTML = `
+            <div class="success-modal-content">
+                <div class="success-modal-header" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                    <i class="fas fa-edit"></i>
+                    <h2>✏️ تعديل الرغبات</h2>
+                    <p>يمكنك تعديل رغباتك مع الاحتفاظ بسجل التعديلات</p>
+                </div>
+                <div class="success-modal-body">
+                    <div class="info-row">
+                        <span class="info-label"><i class="fas fa-user"></i> الطالب:</span>
+                        <span class="info-value">${studentData.firstNameAr} ${studentData.lastNameAr}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fas fa-id-card"></i> رقم التسجيل:</span>
+                        <span class="info-value">${studentData.registrationNumber}</span>
+                    </div>
+                    <div class="warning-text" style="background: #f39c1210; border-right-color: #f39c12;">
+                        <i class="fas fa-info-circle" style="color: #f39c12;"></i>
+                        <span>سيتم تسجيل تعديلاتك في سجل المحفوظات. يمكنك تعديل رغباتك مع الاحتفاظ بالنسخة السابقة.</span>
+                    </div>
+                </div>
+                <div class="success-modal-footer">
+                    <button class="btn-modal btn-modal-secondary" id="cancelEditBtn">
+                        <i class="fas fa-times"></i> إلغاء
+                    </button>
+                    <button class="btn-modal btn-modal-primary" id="confirmEditBtn">
+                        <i class="fas fa-check"></i> متابعة التعديل
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        document.getElementById('cancelEditBtn')?.addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        document.getElementById('confirmEditBtn')?.addEventListener('click', () => {
+            modal.remove();
+            if (callback) callback();
+        });
+    }
+
+    document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const { internal, external } = getCounts();
+        
+        if(internal < 11) {
+            showAlertInForm(`⚠️ يجب اختيار 11 تخصص داخلي على الأقل`, 'error');
+            return;
+        }
+        
+        const validPrefs = currentPreferences.filter(p => p.code && p.code !== '');
+        
+        const studentData = {
+            firstNameAr: document.getElementById('firstNameAr').value,
+            lastNameAr: document.getElementById('lastNameAr').value,
+            firstNameLat: document.getElementById('firstNameLat').value,
+            lastNameLat: document.getElementById('lastNameLat').value,
+            birthDate: document.getElementById('birthDate').value,
+            birthPlace: document.getElementById('birthPlace').value,
+            registrationNumber: document.getElementById('regNumber').value,
+            phone: document.getElementById('phone').value,
+            group: document.getElementById('group').value,
+            email: document.getElementById('email').value,
+            preferences: validPrefs
+        };
+        
+        try {
+            const response = await fetch(`${API_URL}/students/apply`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(studentData)
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Show success modal instead of toast
+                showSuccessModal({
+                    firstNameAr: studentData.firstNameAr,
+                    lastNameAr: studentData.lastNameAr,
+                    registrationNumber: studentData.registrationNumber,
+                    preferences: validPrefs
+                }, data.privateCode);
+                
+                // Reset form
+                document.getElementById('registerForm').reset();
+                initializePreferences();
+                renderPreferencesUI();
+            } else {
+                showAlertInForm(data.message || 'حدث خطأ', 'error');
+            }
+        } catch (error) {
+            showAlertInForm('حدث خطأ في الاتصال بالخادم', 'error');
+        }
+    });
+
+    // Enhanced Access with Edit Mode
+    document.getElementById('accessStudentBtn')?.addEventListener('click', async () => {
+        const reg = document.getElementById('accessRegNumber').value.trim();
+        const privateCode = document.getElementById('accessPrivateCode').value.trim();
+        
+        if(!reg || !privateCode) {
+            showToastAlert('⚠️ أدخل رقم التسجيل وكود الخصوصية', 'error');
+            return;
+        }
+        
+        try {
+            const response = await fetch(`${API_URL}/students/secure-access`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ registrationNumber: reg, privateCode: privateCode })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                currentEditStudent = data.student;
+                displayStudentDashboard(data.student);
+            } else {
+                showToastAlert('❌ رقم التسجيل أو كود الخصوصية غير صحيحة', 'error');
+            }
+        } catch (error) {
+            showToastAlert('حدث خطأ في الاتصال بالخادم', 'error');
+        }
+    });
+
+    function displayStudentDashboard(student) {
+        const panel = document.getElementById('studentDynamicPanel');
+        panel.classList.remove('hidden');
+        const prefsList = student.preferences || [];
+        
+        const internalCount = prefsList.filter(p => p.type === 'internal').length;
+        const externalCount = prefsList.filter(p => p.type === 'external').length;
+        
+        let prefsHtml = `<div style="background: rgba(255,255,255,0.2); border-radius: 25px; padding: 20px; margin-top: 20px;">
+            <h4><i class="fas fa-heart"></i> رغباتي (${prefsList.length})</h4>
+            <p style="font-size: 0.85rem; opacity: 0.9;">${internalCount} داخلي + ${externalCount} خارجي</p>`;
+        
+        prefsList.forEach((p, i) => {
+            prefsHtml += `<div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.3); padding: 10px;">
+                <span style="font-weight: bold;">${i+1}</span>
+                <span><strong>${p.specialtyName || p.name}</strong></span>
+                <span>${p.type === 'external' ? `🏛️ خارجي (${p.university})` : '🏠 داخلي'}</span>
+            </div>`;
+        });
+        prefsHtml += `</div>`;
+        
+        // Edit History
+        let historyHtml = '';
+        if (student.editHistory && student.editHistory.length > 0) {
+            historyHtml = `<div style="background: rgba(255,255,255,0.15); border-radius: 25px; padding: 20px; margin-top: 20px;">
+                <h4><i class="fas fa-history"></i> سجل التعديلات</h4>`;
+            student.editHistory.forEach(record => {
+                historyHtml += `<div class="edit-history-item">
+                    <i class="fas fa-clock"></i> ${new Date(record.modifiedAt).toLocaleString('ar-EG')}
+                    <br><small>${record.reason || 'تعديل الرغبات'}</small>
+                </div>`;
+            });
+            historyHtml += `</div>`;
+        }
+        
+        panel.innerHTML = `
+            <div class="student-dashboard">
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                    <div><i class="fas fa-user-graduate"></i> <strong>${student.firstNameAr} ${student.lastNameAr}</strong></div>
+                    <div><i class="fas fa-id-card"></i> رقم التسجيل: ${student.registrationNumber}</div>
+                </div>
+                <div style="margin-top: 10px;"><i class="fas fa-envelope"></i> ${student.email} | <i class="fas fa-phone"></i> ${student.phone}</div>
+                <div><i class="fas fa-calendar"></i> تاريخ التسجيل: ${new Date(student.applicationDate).toLocaleDateString('ar-EG')}</div>
+                ${student.firstYearAverage ? `<div><i class="fas fa-chart-line"></i> المعدل: ${student.firstYearAverage}</div>` : ''}
+                <hr style="margin: 20px 0; border-color: rgba(255,255,255,0.3);">
+                
+                <!-- Edit Mode Banner -->
+                <div id="editModeBanner" class="edit-mode-banner hidden">
+                    <div>
+                        <i class="fas fa-edit"></i> <strong>وضع التعديل</strong> - يمكنك تعديل رغباتك
+                    </div>
+                    <button class="btn-edit-mode" id="exitEditModeBtn">
+                        <i class="fas fa-times"></i> خروج من التعديل
+                    </button>
+                </div>
+                
+                <!-- Normal View -->
+                <div id="normalView">
+                    ${prefsHtml}
+                    ${historyHtml}
+                    <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 15px; text-align: center;">
+                        <i class="fas fa-check-circle"></i> حالة الطلب: ${student.status === 'pending' ? 'قيد المعالجة' : student.status === 'assigned' ? 'تم التعيين' : 'قائمة الانتظار'}
+                    </div>
+                    ${student.assignedSpecialty?.name ? `
+                    <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #27ae60, #229954); border-radius: 15px; text-align: center;">
+                        <i class="fas fa-graduation-cap"></i> التخصص المعين: ${student.assignedSpecialty.name}
+                    </div>
+                    ` : ''}
+                    <div style="margin-top: 20px;">
+                        <button id="startEditBtn" class="btn-secondary" style="width: 100%;">
+                            <i class="fas fa-edit"></i> تعديل الرغبات
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Edit View -->
+                <div id="editView" class="hidden">
+                    <div id="editPreferencesContainer"></div>
+                    <div class="edit-controls">
+                        <button id="saveEditBtn" class="btn-edit-save">
+                            <i class="fas fa-save"></i> حفظ التعديلات
+                        </button>
+                        <button id="cancelEditBtn" class="btn-edit-cancel">
+                            <i class="fas fa-times"></i> إلغاء
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- رابط الدخول لواجهة الإدارة (مخفي للطلاب العاديين) -->
-    <div class="admin-access hidden">
-        <a href="/admin.html">
-            <i class="fas fa-user-tie"></i>
-            <span>دخول رئيس القسم</span>
-        </a>
-    </div>
-
-    <!-- الفوتر -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>جامعة قاصدي مرباح - ورقلة<br>قسم الإلكترونيك والاتصالات</p>
-            <p>نظام توجيه طلبة السنة الثالثة - إصدار 2024</p>
-            <div class="developers">
-                <div class="developer">عامري رياض</div>
-                <div class="developer">يوسف مهدي</div>
-                <div class="developer">راوة نور السلام</div>
-            </div>
-            <p class="copyright">تم تطوير هذا الموقع من قبل طلبة القسم تحت إشراف الأستاذ عشبي محمد السيعد</p>
-        </div>
-    </footer>
-
-    <script>
-        // إعدادات API
-        const API_BASE_URL = '/api';
+        `;
         
-        // حالة التطبيق
-        let appState = {
-            currentStudent: null
-        };
-
-        // DOM Elements
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        const studentForm = document.getElementById('studentRegistrationForm');
-        const previousApplicationsTable = document.getElementById('previousApplicationsTable');
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-            setupEventListeners();
+        // Store current preferences for editing
+        let editingPreferences = JSON.parse(JSON.stringify(student.preferences));
+        
+        function renderEditUI() {
+            const container = document.getElementById('editPreferencesContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            editingPreferences.forEach((pref, idx) => {
+                const div = document.createElement('div');
+                div.className = 'preference-item';
+                div.style.marginBottom = '10px';
+                
+                if (pref.type === 'internal') {
+                    let options = `<option value="">-- اختر تخصص داخلي --</option>`;
+                    options += internalSpecialties.map(s => 
+                        `<option value="${s.code}" data-name="${s.nameAr}" data-branch="${s.branch}" ${pref.specialtyCode === s.code ? 'selected' : ''}>
+                            [${s.code}] ${s.nameAr}
+                        </option>`
+                    ).join('');
+                    
+                    div.innerHTML = `
+                        <div class="pref-num">${idx+1}</div>
+                        <select data-idx="${idx}" style="flex: 3; padding: 10px; border-radius: 12px; border: 2px solid #e2e8f0;">
+                            ${options}
+                        </select>
+                        <span class="pref-internal-tag"><i class="fas fa-home"></i> داخلي</span>
+                    `;
+                } else {
+                    div.innerHTML = `
+                        <div class="pref-num" style="background: #8e44ad;">${idx+1}</div>
+                        <div style="flex:3; padding: 10px; background: #f3e5f5; border-radius: 15px;">
+                            <strong>${pref.specialtyName || pref.name}</strong><br>
+                            <small style="color: #8e44ad;"><i class="fas fa-university"></i> ${pref.university || 'جامعة خارجية'}</small>
+                        </div>
+                        <span class="pref-external-tag"><i class="fas fa-globe"></i> خارجي</span>
+                    `;
+                }
+                container.appendChild(div);
+            });
+            
+            // Add event listeners for internal selects
+            document.querySelectorAll('#editPreferencesContainer select').forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const idx = parseInt(e.target.dataset.idx);
+                    const selectedOpt = e.target.options[e.target.selectedIndex];
+                    const val = selectedOpt.value;
+                    
+                    if (val && editingPreferences[idx].type === 'internal') {
+                        const spec = internalSpecialties.find(s => s.code === val);
+                        if (spec) {
+                            editingPreferences[idx].specialtyCode = spec.code;
+                            editingPreferences[idx].specialtyName = spec.nameAr;
+                            editingPreferences[idx].branch = spec.branch;
+                        }
+                    }
+                });
+            });
+        }
+        
+        document.getElementById('startEditBtn')?.addEventListener('click', () => {
+            showEditConfirmationModal(student, () => {
+                document.getElementById('normalView').classList.add('hidden');
+                document.getElementById('editView').classList.remove('hidden');
+                document.getElementById('editModeBanner').classList.remove('hidden');
+                renderEditUI();
+            });
         });
-
-        // تهيئة التطبيق
-        function initializeApp() {
-            // تعيين تاريخ اليوم كأقصى تاريخ للتاريخ الميلادي
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('birthDate').max = today;
-            
-            // تعيين سنة البكالوريا (الحد الأدنى 2000 والحد الأقصى السنة الحالية)
-            const currentYear = new Date().getFullYear();
-            document.getElementById('bacYear').max = currentYear;
-            document.getElementById('bacYear').min = 2000;
-            
-            // إخفاء رابط الدخول للإدارة (سيكون مرئياً فقط لرئيس القسم)
-            // في الواقع، هذا الرابط يجب أن يعطى لرئيس القسم فقط
-        }
-
-        // إعداد مستمعي الأحداث
-        function setupEventListeners() {
-            // تبديل الألسنة
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    switchTab(tabId);
-                });
-            });
-
-            // تقديم طلب الطالب
-            if (studentForm) {
-                studentForm.addEventListener('submit', handleStudentSubmission);
-            }
-        }
-
-        // تبديل الألسنة
-        function switchTab(tabId) {
-            // تحديد الزر النشط
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
-                if (button.getAttribute('data-tab') === tabId) {
-                    button.classList.add('active');
-                }
-            });
-
-            // عرض المحتوى النشط
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                }
-            });
-
-            // إذا كان التبويب هو استمارة الطالب، تحميل الطلبات السابقة
-            if (tabId === 'student-form') {
-                loadStudentApplications();
-            }
-        }
-
-        // معالجة تقديم طلب الطالب
-        async function handleStudentSubmission(e) {
-            e.preventDefault();
-            
-            const registrationNumber = document.getElementById('registrationNumber').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const birthDate = document.getElementById('birthDate').value;
-            const bacYear = document.getElementById('bacYear').value;
-            const specialtyChoice = document.getElementById('specialtyChoice').value;
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/students/apply`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        registrationNumber,
-                        email,
-                        phone,
-                        birthDate,
-                        bacYear: parseInt(bacYear),
-                        specialtyChoice
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    showAlert('form-alert', 'تم تقديم طلبك بنجاح!', 'success');
-                    studentForm.reset();
-                    loadStudentApplications();
-                } else {
-                    showAlert('form-alert', data.message || 'حدث خطأ في تقديم الطلب', 'error');
-                }
-            } catch (error) {
-                console.error('Error submitting application:', error);
-                showAlert('form-alert', 'حدث خطأ في الاتصال بالخادم', 'error');
-            }
-        }
-
-        // تحميل طلبات الطالب السابقة
-        async function loadStudentApplications() {
-            const registrationNumber = document.getElementById('registrationNumber').value;
-            
-            if (!registrationNumber) {
-                return;
-            }
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/students/${registrationNumber}`);
-                const data = await response.json();
-
-                if (data.success) {
-                    updateApplicationsTable([data.student]);
-                } else {
-                    updateApplicationsTable([]);
-                }
-            } catch (error) {
-                console.error('Error loading applications:', error);
-                updateApplicationsTable([]);
-            }
-        }
-
-        // تحديث جدول الطلبات السابقة
-        function updateApplicationsTable(applications) {
-            const tbody = previousApplicationsTable.querySelector('tbody');
-            const noApplicationsRow = document.getElementById('noApplicationsRow');
-            
-            // إزالة الصفوف القديمة
-            tbody.querySelectorAll('tr:not(#noApplicationsRow)').forEach(row => row.remove());
-            
-            if (applications.length === 0) {
-                noApplicationsRow.style.display = 'table-row';
+        
+        document.getElementById('exitEditModeBtn')?.addEventListener('click', () => {
+            document.getElementById('normalView').classList.remove('hidden');
+            document.getElementById('editView').classList.add('hidden');
+            document.getElementById('editModeBanner').classList.add('hidden');
+            editingPreferences = JSON.parse(JSON.stringify(student.preferences));
+        });
+        
+        document.getElementById('cancelEditBtn')?.addEventListener('click', () => {
+            document.getElementById('normalView').classList.remove('hidden');
+            document.getElementById('editView').classList.add('hidden');
+            document.getElementById('editModeBanner').classList.add('hidden');
+            editingPreferences = JSON.parse(JSON.stringify(student.preferences));
+        });
+        
+        document.getElementById('saveEditBtn')?.addEventListener('click', async () => {
+            // Validate internal count
+            const internalCount = editingPreferences.filter(p => p.type === 'internal' && p.specialtyCode).length;
+            if (internalCount < 11) {
+                showToastAlert('⚠️ يجب أن يكون لديك 11 تخصص داخلي على الأقل', 'error');
                 return;
             }
             
-            noApplicationsRow.style.display = 'none';
+            const updateData = {
+                registrationNumber: student.registrationNumber,
+                privateCode: document.getElementById('accessPrivateCode').value.trim(),
+                preferences: editingPreferences.map(p => ({
+                    code: p.specialtyCode,
+                    name: p.specialtyName,
+                    branch: p.branch,
+                    type: p.type,
+                    university: p.university
+                }))
+            };
             
-            applications.forEach(app => {
-                const row = document.createElement('tr');
+            try {
+                const response = await fetch(`${API_URL}/students/update-preferences`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updateData)
+                });
                 
-                const statusText = app.status === 'assigned' ? 'معين' : 'قيد الانتظار';
-                const statusClass = app.status === 'assigned' ? 'status-assigned' : 'status-pending';
+                const data = await response.json();
                 
-                row.innerHTML = `
-                    <td>${app.registrationNumber}</td>
-                    <td>${app.specialtyChoice === 'automation' ? 'الآلية العامة' : 'الآتية بترولية'}</td>
-                    <td>${new Date(app.applicationDate).toLocaleDateString('ar-SA')}</td>
-                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                `;
-                
-                tbody.appendChild(row);
-            });
-        }
+                if (data.success) {
+                    showToastAlert('✅ تم تحديث رغباتك بنجاح!', 'success');
+                    // Refresh dashboard
+                    document.getElementById('accessStudentBtn').click();
+                } else {
+                    showToastAlert(data.message || 'حدث خطأ', 'error');
+                }
+            } catch (error) {
+                showToastAlert('حدث خطأ في الاتصال بالخادم', 'error');
+            }
+        });
+    }
 
-        // عرض رسالة تنبيه
-        function showAlert(containerId, message, type) {
-            const alertContainer = document.getElementById(containerId);
-            
-            alertContainer.textContent = message;
-            alertContainer.className = `alert alert-${type}`;
-            alertContainer.classList.remove('hidden');
-            
-            // إخفاء الرسالة بعد 5 ثواني
-            setTimeout(() => {
-                alertContainer.classList.add('hidden');
-            }, 5000);
+    function showToastAlert(msg, type='success') {
+        const toast = document.createElement('div');
+        toast.className = 'save-indicator';
+        toast.style.background = type === 'error' ? 'linear-gradient(135deg, #e74c3c, #c0392b)' : 'linear-gradient(135deg, #27ae60, #229954)';
+        toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i> ${msg}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    function showAlertInForm(msg, type) {
+        const alertDiv = document.getElementById('formAlert');
+        alertDiv.className = `alert alert-${type}`;
+        alertDiv.innerHTML = msg;
+        alertDiv.classList.remove('hidden');
+        setTimeout(() => alertDiv.classList.add('hidden'), 5000);
+    }
+
+    function initializePreferences() {
+        currentPreferences = [];
+        for(let i = 0; i < 11; i++) {
+            currentPreferences.push({ code: '', name: '', branch: '', type: 'internal', university: null });
         }
-    </script>
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.remove('hidden');
+        });
+    });
+
+    initializePreferences();
+    loadSpecialties();
+    renderPreferencesUI();
+    updateCountersAndProgress();
+</script>
 </body>
 </html>
